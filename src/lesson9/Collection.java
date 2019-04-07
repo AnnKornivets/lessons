@@ -216,39 +216,5 @@ class UserAgeComparator implements Comparator<User>{
 
 
 
-//ДЗ
-//UserGenerator метод Generat
-//сортируем
-//по имени,возрасту,компании и зарплате
-class Person{
-    String name;
-    int age;
-    int salary;
-    String company;
 
-    public Person(String name, int age, int salary, String company) {
-        this.name = name;
-        this.age = age;
-        this.salary = salary;
-        this.company = company;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-
-}
 
