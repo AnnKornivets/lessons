@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class Connection{
+public class Connection implements AutoCloseable{
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -23,6 +23,13 @@ public class Connection{
 
     public Message readMessage() throws IOException, ClassNotFoundException {
         return (Message) in.readObject();
+    }
+
+    @Override
+    public void close() throws Exception {
+        // закрытие ресурсов
+        out.close();
+        in.close();
     }
 }
 
