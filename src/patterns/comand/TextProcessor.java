@@ -23,7 +23,8 @@ public class TextProcessor {
    public void start(){
        Scanner scanner= new Scanner(System.in);
        while (true){
-           //фабричный метод
+//          Command command= getInstance scanner.nextLine();
+//          if (command!=null){command.execute();}
            switch (scanner.nextLine()){
                case "process":
                    executeCommand(new ProcessCommand(this));
@@ -34,6 +35,17 @@ public class TextProcessor {
            }
        }
    }
+    //фабричный метод
+//   private Command getInstance(String command){
+//        Command command1=null;
+//        if("process".equalsIgnoreCase(command)){
+//            command1 =new ProcessCommand();
+//        }else if("exit".equalsIgnoreCase(command)){
+//            command1=new ExitCommand();
+//        }
+//        return command1;
+//
+//   }
 }
 
 
