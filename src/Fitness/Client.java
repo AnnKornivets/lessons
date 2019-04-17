@@ -2,6 +2,7 @@ package Fitness;
 
 import sun.util.calendar.BaseCalendar;
 
+import java.time.LocalDate;
 import java.util.Date;
 @AccessMode(group="0")
 
@@ -19,7 +20,7 @@ public class Client extends Human {
         super(name, surname, bYear);
     }
 
-    public Client(String name, String surname, int bYear, String regDate) {
+    public Client(String name, String surname, int bYear, LocalDate regDate) {
         super(name, surname, bYear, regDate);
     }
 

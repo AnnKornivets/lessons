@@ -21,7 +21,7 @@ public class MessageServer {
 
     public void start() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)){
-            System.out.println("Server started...");
+            System.out.println("MessageServer started...");
             while (true){
                 Socket socket = serverSocket.accept();
                 connection = new Connection(socket);
