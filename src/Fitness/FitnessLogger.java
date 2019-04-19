@@ -9,7 +9,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class FitnessLogger {
-    public static void PrintTofile(Human human, FitnessServiceEnumeration type) throws IOException {
+    public FitnessLogger(File file) {
+    }
+
+    public static void add(Human human, FitnessServiceEnumeration type) throws IOException {
         StringBuilder sb = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -25,5 +28,7 @@ public class FitnessLogger {
         }
 
     }
+
+
 }
 

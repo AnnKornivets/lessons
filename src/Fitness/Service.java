@@ -1,4 +1,4 @@
 package Fitness;
 
-public enum Service {
+public enum Service {ONE_DAY()
 }

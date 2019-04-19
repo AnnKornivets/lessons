@@ -1,18 +1,132 @@
 package Fitness;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 public class FitnessRegistrator {
-    ArrayList<Human> inGym = new ArrayList<>();
-    ArrayList<Human> inPool = new ArrayList<>();
-    ArrayList<Human> inGroup = new ArrayList<>();
+    private TreeSet<Human> inGym;
+    private TreeSet<Human> inPool;
+    private TreeSet<Human> inGroup;
+    FitnessLogger fitnessLogger;
 
+    FitnessRegistrator(){
+        Comparator<Human> humanComparator = new HumanSurnameComparator().thenComparing(new HumanNameComparator());
+        inGym = new TreeSet<>(humanComparator);
+        inPool = new TreeSet<>(humanComparator);
+        inGroup = new TreeSet<>(humanComparator);
 
-    public void add(Human human, FitnessServiceEnumeration type ){
-        if (FitnessServiceEnumeration.GYM.equals(type)){
-            inGym.add(human);
+        File file = new File("service.txt");
+        fitnessLogger = new FitnessLogger(file);
+    }
+
+    public void add(Client client, FitnessServiceEnumeration type) throws IOException {
+        fitnessLogger.add(client, type);
+        if (FitnessServiceEnumeration.GYM.equals(type)) {
+            if (inGym.size() < 21){
+                inGym.add(client);
+            }else {throw new QueueException("All places are occupied!");}
         }
+        else if(FitnessServiceEnumeration.POOL.equals(type)){
+            if (inPool.size() < 21){
+                inPool.add(client);
+            }else {throw new QueueException("All places are occupied!");}
+        }
+        else {throw new NoAccessException("You cannot register this section");}
+        client.setVisited(true);
+    }
+
+    public void add(DayClient dayClient, FitnessServiceEnumeration type) throws IOException {
+        fitnessLogger.add(dayClient, type);
+        if (FitnessServiceEnumeration.GYM.equals(type)) {
+            if (inGym.size() < 21){
+                inGym.add(dayClient);
+            }else {throw new QueueException("All places are occupied!");}
+        }
+        if (FitnessServiceEnumeration.GROUP.equals(type)) {
+            if (inGroup.size() < 21){
+                inGroup.add(dayClient);
+            }else {throw new QueueException("All places are occupied!");}
+        }
+        else {throw new NoAccessException("You cannot register this section");}
+    }
+
+    public void add(FullDayClient fullDayClient, FitnessServiceEnumeration type) throws IOException {
+        fitnessLogger.add(fullDayClient, type);
+        if (FitnessServiceEnumeration.GYM.equals(type)) {
+            if (inGym.size() < 21){
+                inGym.add(fullDayClient);
+            }else {throw new QueueException("All places are occupied!");}
+        }
+        if (FitnessServiceEnumeration.GROUP.equals(type)) {
+            if (inGroup.size() < 21){
+                inGroup.add(fullDayClient);
+            }else {throw new QueueException("All places are occupied!");}
+        }else if(FitnessServiceEnumeration.POOL.equals(type)){
+            if (inPool.size() < 21){
+                inPool.add(fullDayClient);
+            }else {throw new QueueException("All places are occupied!");}
+        }
+    }
+
+    public void deleteFromAllLists(Human human){
+        inGroup.remove(human);
+        inPool.remove(human);
+        inGym.remove(human);
+    }
+
+    public void out(){
+        System.out.println(inGym);
+        System.out.println(inPool);
+        System.out.println(inGroup);
+    }
 
 
+    public static void main(String[] args) throws IOException {
+        FitnessRegistrator fitnessRegistrator = new FitnessRegistrator();
+        FitnessServiceEnumeration group = FitnessServiceEnumeration.GROUP;
+        FitnessServiceEnumeration gym = FitnessServiceEnumeration.GYM;
+        FitnessServiceEnumeration pool = FitnessServiceEnumeration.POOL;
+
+        fitnessRegistrator.add(new Client("Ada", "Wong", 1968), gym);
+        fitnessRegistrator.add(new Client("Jedai", "Kein", 2008), gym);
+        fitnessRegistrator.add(new Client("Ada", "Wong", 1968), pool);
+
+        fitnessRegistrator.add(new Client("Slain", "Katar", 1968), pool);
+        fitnessRegistrator.add(new Client("Rendal", "Selk", 2008), pool);
+        fitnessRegistrator.add(new Client("Wert", "Wong", 1968), gym);
+        fitnessRegistrator.add(new Client("Salazer", "Slizeren", 2008), gym);
+
+        fitnessRegistrator.out();
+    }
+
+    @Override
+    public String toString() {
+        return "FitnessRegistrator{" +
+                "inGym=" + inGym +
+                ", inPool=" + inPool +
+                ", inGroup=" + inGroup +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inGym, inPool, inGroup);
     }
 }
+class HumanNameComparator implements Comparator<Human>{
+
+    @Override
+    public int compare(Human o1, Human o2) {
+        return o1.getName().compareTo(o2.getName());
+    }
+}
+class HumanSurnameComparator implements Comparator<Human>{
+
+    @Override
+    public int compare(Human o1, Human o2) {
+        return o1.getSurname().compareTo(o2.getSurname());
+    }
+}
+
