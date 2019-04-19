@@ -17,7 +17,7 @@ public class FitnessRegistrator {
         inPool = new TreeSet<>(humanComparator);
         inGroup = new TreeSet<>(humanComparator);
 
-        File file = new File("service.txt");
+        File file = new File("src/Fitness/service.txt");
         fitnessLogger = new FitnessLogger(file);
     }
 
