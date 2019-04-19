@@ -1,7 +1,6 @@
 package Fitness;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -17,8 +16,6 @@ public class FitnessRegistrator {
         inPool = new TreeSet<>(humanComparator);
         inGroup = new TreeSet<>(humanComparator);
 
-        File file = new File("src/Fitness/service.txt");
-        fitnessLogger = new FitnessLogger(file);
     }
 
     public void add(Client client, FitnessServiceEnumeration type) throws IOException {
@@ -83,13 +80,13 @@ public class FitnessRegistrator {
     }
 
 
-
     @Override
     public String toString() {
         return "FitnessRegistrator{" +
                 "inGym=" + inGym +
                 ", inPool=" + inPool +
                 ", inGroup=" + inGroup +
+                ", fitnessLogger=" + fitnessLogger +
                 '}';
     }
 
