@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+
+//Пример работы с временем в DateTimeExample
+
 public class FitnessLogger {
     public FitnessLogger(File file) {
     }
