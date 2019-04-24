@@ -9,6 +9,7 @@ public class FitnessRegistrator {
     private TreeSet<Human> inPool;
     private TreeSet<Human> inGroup;
     FitnessLogger fitnessLogger;
+    private int size=19;
 
     FitnessRegistrator(){
         Comparator<Human> humanComparator = new HumanSurnameComparator().thenComparing(new HumanNameComparator());
@@ -21,12 +22,12 @@ public class FitnessRegistrator {
     public void add(Client client, FitnessServiceEnumeration type) throws IOException {
         fitnessLogger.add(client, type);
         if (FitnessServiceEnumeration.GYM.equals(type)) {
-            if (inGym.size() <19){
+            if (inGym.size() <size){
                 inGym.add(client);
             }else {throw new QueueException("All places are occupied!");}
         }
         else if(FitnessServiceEnumeration.POOL.equals(type)){
-            if (inPool.size() < 19){
+            if (inPool.size() < size){
                 inPool.add(client);
             }else {throw new QueueException("All places are occupied!");}
         }
@@ -37,7 +38,7 @@ public class FitnessRegistrator {
     public void add(DayClient dayClient, FitnessServiceEnumeration type) throws IOException {
         fitnessLogger.add(dayClient, type);
         if (FitnessServiceEnumeration.GYM.equals(type)) {
-            if (inGym.size() < 19){
+            if (inGym.size() < size){
                 inGym.add(dayClient);
             }else {throw new QueueException("All places are occupied!");}
         }
@@ -52,16 +53,16 @@ public class FitnessRegistrator {
     public void add(FullDayClient fullDayClient, FitnessServiceEnumeration type) throws IOException {
         fitnessLogger.add(fullDayClient, type);
         if (FitnessServiceEnumeration.GYM.equals(type)) {
-            if (inGym.size() < 19){
+            if (inGym.size() < size){
                 inGym.add(fullDayClient);
             }else {throw new QueueException("All places are occupied!");}
         }
         if (FitnessServiceEnumeration.GROUP.equals(type)) {
-            if (inGroup.size() < 19){
+            if (inGroup.size() < size){
                 inGroup.add(fullDayClient);
             }else {throw new QueueException("All places are occupied!");}
         }else if(FitnessServiceEnumeration.POOL.equals(type)){
-            if (inPool.size() < 19){
+            if (inPool.size() < size){
                 inPool.add(fullDayClient);
             }else {throw new QueueException("All places are occupied!");}
         }
