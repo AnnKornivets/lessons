@@ -9,7 +9,7 @@ public class FitnessRegistrator {
     private TreeSet<Human> inPool;
     private TreeSet<Human> inGroup;
     FitnessLogger fitnessLogger;
-    private int size=19;
+    private int size=20;
 
     FitnessRegistrator(){
         Comparator<Human> humanComparator = new HumanSurnameComparator().thenComparing(new HumanNameComparator());

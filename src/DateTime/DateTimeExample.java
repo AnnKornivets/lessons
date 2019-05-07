@@ -5,10 +5,8 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DateTimeExample {
     public static void main(String[] args) {
@@ -72,6 +70,10 @@ public class DateTimeExample {
 
         boolean isAfter=LocalDate.parse("2018-07-12").isAfter(LocalDate.parse("2019-07-12"));
         boolean isBefore=LocalDate.now().isBefore(LocalDate.parse("2019-07-12"));
+        boolean isEqual =LocalDate.now().isEqual(LocalDate.parse("2019-07-12"));
+
+//        List<LocalDate> dates = LocalDate.now().datesUntil(LocalDate.parse("2019-07-12")).collect(Collectors.toList());
+//        System.out.println(dates);
 
         //LocalTime
 
@@ -100,6 +102,33 @@ public class DateTimeExample {
         System.out.println(localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.FRANCE));
 
         System.out.println(localDateTime.getMonth());
+
+//Period
+        LocalDate startDate = LocalDate.parse("2016-04-12");
+        LocalDate finalDate = startDate.plus(Period.ofDays(12));
+        System.out.println(finalDate);
+
+
+
+
+        List between = Period.between(finalDate,startDate).getUnits();
+        System.out.println(between);
+        long between2 = ChronoUnit.DAYS.between(finalDate,startDate);
+        System.out.println(between2);
+
+       //Duration
+        LocalTime localTime = LocalTime.of(7,23);
+        LocalTime localTime1=localTime.plus(Duration.ofMinutes(23));
+
+        long timeB = Duration.between(localTime,localTime1).toMinutes();
+        long timeB2= ChronoUnit.SECONDS.between(localTime,localTime1);
+
+       //
+
+        Set<String> allZone=ZoneId.getAvailableZoneIds();
+        System.out.println(allZone);
+
+        ZoneId zoneId =ZoneId.of("America/Cuiaba");
 
     }
 }

@@ -1,0 +1,8 @@
+2019-05-06 20:40:01 DEBUG Log4jExample:11 - 3/0
+2019-05-06 20:40:01 ERROR Log4jExample:14 - Some error: 
+java.lang.ArithmeticException: / by zero
+	at logging.Log4jExample.main(Log4jExample.java:12)
+2019-05-06 21:20:32 DEBUG Log4jExample:11 - 3/0
+2019-05-06 21:20:32 ERROR Log4jExample:14 - Some error: 
+java.lang.ArithmeticException: / by zero
+	at logging.Log4jExample.main(Log4jExample.java:12)
